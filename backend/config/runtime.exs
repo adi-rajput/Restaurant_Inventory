@@ -1,20 +1,19 @@
 import Config
 
-if config_env() == :prod do
-  database_url =
-    System.get_env("DATABASE_URL") ||
-      raise """
-      environment variable DATABASE_URL is missing.
-      For example: postgres://USER:PASS@HOST/DATABASE
-      """
-
-  maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
-
+# General config for all environments when env vars are present
+database_url = System.get_env("DATABASE_URL")
+if database_url do
   config :inventory, Inventory.Repo,
-    # ssl: true,
     url: database_url,
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    socket_options: maybe_ipv6
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+end
+
+if config_env() == :prod do
+  database_url = database_url || raise "environment variable DATABASE_URL is missing."
+  
+  config :inventory, Inventory.Repo,
+    url: database_url,
+    socket_options: if(System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: [])
 
   secret_key_base =
     System.get_env("SECRET_KEY_BASE") ||

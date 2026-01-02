@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Item, CreateItemDTO, CreateMovementDTO } from '../types/inventory';
 
 const api = axios.create({
-    baseURL: '/api',
+    baseURL: (import.meta.env.VITE_API_URL as string) || '/api',
 });
 
 export const getItems = async (): Promise<Item[]> => {

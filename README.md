@@ -1,77 +1,64 @@
 # Restaurant Inventory Management System
 
 ## Overview
-A high-performance inventory management system designed for restaurants. Features a real-time dashboard, stock movement tracking, and dynamic availability calculation.
+A high-performance inventory management system for restaurants. Features a real-time dashboard and stock movement tracking.
 
-## Tech Stack
-- **Fullstack:** Bundled as a single Elixir Release
-- **Backend:** Phoenix (Elixir), PostgreSQL
-- **Frontend:** React, TypeScript, Framer Motion, Tailwind CSS
-- **Deployment:** Dockerized (Optimized for Fly.io)
+## 🚢 Deployment (No Credit Card Method)
 
----
-
-## 🚀 Quick Start (Local)
-
-### Prerequisites
-- Docker (Recommended) **OR**
-- Elixir 1.14+ & Node.js 20+
-
-### Automatic Setup (Windows)
-Run the provided batch scripts:
-1. `start_backend.bat` - Sets up the database and starts Phoenix.
-2. In a separate terminal, `cd frontend && npm install && npm run dev`.
+You can deploy this project for FREE without a credit card using:
+1.  **Vercel** (for the Frontend)
+2.  **Gigalixir** (for the Backend/Database) - Gigalixir has a free tier that doesn't require a card.
 
 ---
 
-## 🚢 Deployment (GitHub + Fly.io)
-
-### 1. Preparation
-This project is configured to serve the frontend via the backend for high performance.
-- Root contains the `Dockerfile` for multi-stage builds.
-- `.gitignore` is set up to exclude local secrets and large dependencies.
-
-### 2. Push to GitHub
+### Phase 1: Push to GitHub
+1. Create a new repository on GitHub.
+2. In your project root:
 ```bash
 git init
 git add .
-git commit -m "Initialize deployment-ready inventory system"
+git commit -m "Initial commit"
 git branch -M main
-git remote add origin <your-repo-url>
+git remote add origin <your-github-repo-url>
 git push -u origin main
 ```
 
-### 3. Deploy to Fly.io
+---
+
+### Phase 2: Deploy Backend (Gigalixir)
+1. Sign up at [Gigalixir](https://gigalixir.com/) (No card required).
+2. Install the [Gigalixir CLI](https://gigalixir.readthedocs.io/en/latest/main.html#install-the-command-line-interface).
+3. Create your app:
 ```bash
-# 1. Login
-fly auth login
-
-# 2. Launch (Creates app and DB)
-fly launch
-
-# 3. Set secrets
-fly secrets set SECRET_KEY_BASE=$(mix phx.gen.secret) PHX_HOST=your-app.fly.dev
-
-# 4. Deploy
-fly deploy
+gigalixir login
+gigalixir create -n your-app-name
+gigalixir pg:create --free
+```
+4. Configure environment variables:
+```bash
+gigalixir config:set SECRET_KEY_BASE=$(mix phx.gen.secret)
+gigalixir config:set PHX_HOST=your-app-name.gigalixirapp.com
+```
+5. Deploy:
+```bash
+git push gigalixir main
 ```
 
 ---
 
-## 🛠️ Post-Deployment Commands
-Once deployed, run these to setup your remote database:
-
-**Run Migrations:**
-```bash
-fly ssh console -C "/app/bin/inventory eval 'Inventory.Release.migrate'"
-```
-
-**Seed Initial Data:**
-```bash
-fly ssh console -C "/app/bin/inventory eval 'Inventory.Release.seed'"
-```
+### Phase 3: Deploy Frontend (Vercel)
+1. Sign up at [Vercel](https://vercel.com/).
+2. Click **Add New Project** and import your GitHub repo.
+3. **Important Configuration**:
+   - **Root Directory**: Select the `frontend` folder.
+   - **Environment Variables**: Add `VITE_API_URL` with your Gigalixir URL (e.g., `https://your-app-name.gigalixirapp.com/api`).
+4. Click **Deploy**.
 
 ---
+
+## 🛠️ Local Development
+1. Run `start_backend.bat` for the server.
+2. `cd frontend && npm install && npm run dev` for the UI.
 
 ## 📄 License
 MIT
