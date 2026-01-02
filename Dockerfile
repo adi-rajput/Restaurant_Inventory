@@ -49,5 +49,9 @@ COPY --from=backend-builder /app/backend/_build/prod/rel/inventory ./
 ENV MIX_ENV=prod
 ENV PORT=4000
 
+# Copy entrypoint script
+COPY entrypoint.sh ./
+RUN chmod +x ./entrypoint.sh
+
 # Start command
-CMD ["bin/inventory", "start"]
+CMD ["./entrypoint.sh"]

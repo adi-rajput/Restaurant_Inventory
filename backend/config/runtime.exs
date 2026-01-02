@@ -36,5 +36,7 @@ if config_env() == :prod do
     secret_key_base: secret_key_base
 
   # Set the frontend URL for CORS
-  config :inventory, :frontend_url, System.get_env("FRONTEND_URL") || "http://localhost:5173"
+  frontend_url = System.get_env("FRONTEND_URL")
+  frontend_url = if frontend_url in [nil, ""], do: "http://localhost:5173", else: frontend_url
+  config :inventory, :frontend_url, frontend_url
 end
