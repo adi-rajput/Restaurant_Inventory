@@ -31,6 +31,11 @@ defmodule Inventory.StockCalculator do
     current_stock + qty
   end
 
+  # Map-based versions for testing or manual logic
+  defp apply_movement(current_stock, %{movement_type: "IN", quantity: qty}), do: current_stock + qty
+  defp apply_movement(current_stock, %{movement_type: "OUT", quantity: qty}), do: current_stock - qty
+  defp apply_movement(current_stock, %{movement_type: "ADJUSTMENT", quantity: qty}), do: current_stock + qty
+
   # Handle cases where struct might be different or partial
   defp apply_movement(acc, _), do: acc
 

@@ -23,4 +23,8 @@ defmodule InventoryWeb.ItemView do
   def render("movements.json", %{movements: movements}) do
     %{data: render_many(movements, InventoryWeb.InventoryMovementView, "movement.json")}
   end
+
+  def render("error.json", %{changeset: changeset}) do
+    InventoryWeb.ChangesetJSON.render("error.json", %{changeset: changeset})
+  end
 end
