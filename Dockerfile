@@ -32,6 +32,9 @@ COPY backend/config ./config
 RUN mkdir -p priv/static
 COPY --from=frontend-builder /app/frontend/dist/ ./priv/static/
 
+# Digest static assets
+RUN mix phx.digest
+
 # Build the release
 RUN mix release
 

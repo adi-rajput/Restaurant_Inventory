@@ -13,6 +13,7 @@ if config_env() == :prod do
   
   config :inventory, Inventory.Repo,
     url: database_url,
+    ssl: true,
     socket_options: if(System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: [])
 
   secret_key_base =
@@ -33,4 +34,7 @@ if config_env() == :prod do
       port: port
     ],
     secret_key_base: secret_key_base
+
+  # Set the frontend URL for CORS
+  config :inventory, :frontend_url, System.get_env("FRONTEND_URL") || "http://localhost:5173"
 end
