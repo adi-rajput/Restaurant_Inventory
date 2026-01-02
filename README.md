@@ -1,42 +1,70 @@
-# Restaurant Inventory Management System
+# 🍽️ Restaurant Inventory Management System
 
-## Overview
-A high-performance inventory management system for restaurants.
+A production-ready, full-stack application for managing restaurant stocks with a high-performance Elixir backend and a stunning, animated React frontend.
 
-## 🚢 "No Credit Card" Deployment Guide (Render + Neon)
-
-This is the most reliable way to deploy for free without a credit card.
-
-### Step 1: Create a Free Database (Neon.tech)
-1.  Sign up at [Neon.tech](https://neon.tech/).
-2.  Create a project and copy your **Connection String** (`postgres://...`).
-
-### Step 2: Push to GitHub
-```bash
-git init
-git add .
-git commit -m "Root deployment"
-git branch -M main
-git remote add origin <your-repo-url>
-git push -u origin main
-```
-
-### Step 3: Deploy to Render.com
-1.  Sign up at [Render.com](https://render.com/) via GitHub.
-2.  **New +** > **Web Service** > Select your repo.
-3.  **Runtime**: Select `Docker`.
-4.  **Instance Type**: Select `Free`.
-5.  **Environment Variables** (Add these in "Advanced"):
-    - `DATABASE_URL`: (Your Neon connection string)
-    - `SECRET_KEY_BASE`: (Run `mix phx.gen.secret` locally to generate)
-    - `PHX_HOST`: `your-app-name.onrender.com`
-6.  **Deploy!** Render will build your React UI and Phoenix API into one single link.
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://restaurant-inventory-i0s3.onrender.com)
+[![Tech Stack](https://img.shields.io/badge/Stack-Elixir%20|%20React%20|%20Postgres-blue)](#tech-stack)
 
 ---
 
-## 🛠️ Local Development
-- Backend: `start_backend.bat`
-- Frontend: `cd frontend && npm install && npm run dev`
+## 📖 Project Documentation
+I have prepared detailed documentation to showcase the technical depth of this project:
+1.  **[System Architecture](./DOCS/ARCHITECTURE.md)**: High-level overview and design decisions.
+2.  **[Technical Deep Dive](./DOCS/TECHNICAL_DETAILS.md)**: Challenges solved and implementation highlights.
+3.  **[API Reference](./DOCS/API.md)**: Full endpoint documentation.
+
+---
+
+## ✨ Key Features
+- **Dynamic Ledger**: Stocks are calculated from an audit trail, ensuring 100% data integrity.
+- **Premium UI**: Crafted with Tailwind CSS and Framer Motion for a smooth, high-end user experience.
+- **Micro-animations**: Interactive elements that provide immediate feedback.
+- **Robust Backend**: Built with Phoenix/Elixir for exceptional reliability and concurrency.
+- **Fully Dockerized**: Professional-grade multi-stage containerization.
+
+---
+
+## 🛠️ Tech Stack
+- **Backend**: Elixir, Phoenix Framework, Ecto
+- **Frontend**: React (TypeScript), Framer Motion, Lucide-React
+- **Styling**: Tailwind CSS
+- **Database**: PostgreSQL (Neon Serverless)
+- **Deployment**: Render (Docker Runtime)
+
+---
+
+## 🚀 Quick Setup
+
+### Prerequisites
+- Elixir 1.14+
+- Node.js 18+
+- PostgreSQL
+
+### Local Development
+1.  **Backend**: 
+    ```bash
+    cd backend
+    mix deps.get
+    mix ecto.setup
+    mix phx.server
+    ```
+2.  **Frontend**:
+    ```bash
+    cd frontend
+    npm install
+    npm run dev
+    ```
+
+---
+
+## 🏗️ Production Build
+The project uses a multi-stage Docker build to package the React frontend inside the Phoenix release:
+```bash
+docker build -t inventory-app .
+docker run -p 4000:4000 inventory-app
+```
+
+---
 
 ## 📄 License
 MIT
