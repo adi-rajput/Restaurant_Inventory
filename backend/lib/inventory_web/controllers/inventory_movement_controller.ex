@@ -22,7 +22,8 @@ defmodule InventoryWeb.InventoryMovementController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(InventoryWeb.ChangesetView, "error.json", changeset: changeset)
+        |> put_view(json: InventoryWeb.ChangesetJSON)
+        |> render("error.json", changeset: changeset)
     end
   end
 end

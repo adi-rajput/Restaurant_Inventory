@@ -4,6 +4,8 @@ defmodule InventoryWeb do
   as controllers, components, channels, and so on.
   """
 
+  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt index.html)
+
   def controller do
     quote do
       use Phoenix.Controller, namespace: InventoryWeb
@@ -41,6 +43,15 @@ defmodule InventoryWeb do
   def channel do
     quote do
       use Phoenix.Channel
+    end
+  end
+
+  def verified_routes do
+    quote do
+      use Phoenix.VerifiedRoutes,
+        endpoint: InventoryWeb.Endpoint,
+        router: InventoryWeb.Router,
+        statics: InventoryWeb.static_paths()
     end
   end
 

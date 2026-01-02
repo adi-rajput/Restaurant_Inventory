@@ -6,8 +6,9 @@ import Config
 # to provide built-in test isolation per socket.
 config :inventory, Inventory.Repo,
   username: "postgres",
-  password: "password",
+  password: "2505adit",
   hostname: "localhost",
+  port: 5433,
   database: "inventory_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
