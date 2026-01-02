@@ -40,7 +40,11 @@ defmodule InventoryWeb.Endpoint do
   plug Plug.Session, @session_options
   
   # Add CORS - allows configuration via FRONTEND_URL env var
-  plug CORSPlug, origin: Application.compile_env(:inventory, :frontend_url, "http://localhost:5173")
+  plug CORSPlug, origin: &InventoryWeb.Endpoint.cors_origin/0
+
+  def cors_origin do
+    Application.get_env(:inventory, :frontend_url, "http://localhost:5173")
+  end
 
   plug InventoryWeb.Router
 end
