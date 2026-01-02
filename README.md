@@ -1,64 +1,42 @@
 # Restaurant Inventory Management System
 
 ## Overview
-A high-performance inventory management system for restaurants. Features a real-time dashboard and stock movement tracking.
+A high-performance inventory management system for restaurants.
 
-## 🚢 Deployment (No Credit Card Method)
+## 🚢 "No Credit Card" Deployment Guide (Render + Neon)
 
-You can deploy this project for FREE without a credit card using:
-1.  **Vercel** (for the Frontend)
-2.  **Gigalixir** (for the Backend/Database) - Gigalixir has a free tier that doesn't require a card.
+This is the most reliable way to deploy for free without a credit card.
 
----
+### Step 1: Create a Free Database (Neon.tech)
+1.  Sign up at [Neon.tech](https://neon.tech/).
+2.  Create a project and copy your **Connection String** (`postgres://...`).
 
-### Phase 1: Push to GitHub
-1. Create a new repository on GitHub.
-2. In your project root:
+### Step 2: Push to GitHub
 ```bash
 git init
 git add .
-git commit -m "Initial commit"
+git commit -m "Root deployment"
 git branch -M main
-git remote add origin <your-github-repo-url>
+git remote add origin <your-repo-url>
 git push -u origin main
 ```
 
----
-
-### Phase 2: Deploy Backend (Gigalixir)
-1. Sign up at [Gigalixir](https://gigalixir.com/) (No card required).
-2. Install the [Gigalixir CLI](https://gigalixir.readthedocs.io/en/latest/main.html#install-the-command-line-interface).
-3. Create your app:
-```bash
-gigalixir login
-gigalixir create -n your-app-name
-gigalixir pg:create --free
-```
-4. Configure environment variables:
-```bash
-gigalixir config:set SECRET_KEY_BASE=$(mix phx.gen.secret)
-gigalixir config:set PHX_HOST=your-app-name.gigalixirapp.com
-```
-5. Deploy:
-```bash
-git push gigalixir main
-```
-
----
-
-### Phase 3: Deploy Frontend (Vercel)
-1. Sign up at [Vercel](https://vercel.com/).
-2. Click **Add New Project** and import your GitHub repo.
-3. **Important Configuration**:
-   - **Root Directory**: Select the `frontend` folder.
-   - **Environment Variables**: Add `VITE_API_URL` with your Gigalixir URL (e.g., `https://your-app-name.gigalixirapp.com/api`).
-4. Click **Deploy**.
+### Step 3: Deploy to Render.com
+1.  Sign up at [Render.com](https://render.com/) via GitHub.
+2.  **New +** > **Web Service** > Select your repo.
+3.  **Runtime**: Select `Docker`.
+4.  **Instance Type**: Select `Free`.
+5.  **Environment Variables** (Add these in "Advanced"):
+    - `DATABASE_URL`: (Your Neon connection string)
+    - `SECRET_KEY_BASE`: (Run `mix phx.gen.secret` locally to generate)
+    - `PHX_HOST`: `your-app-name.onrender.com`
+6.  **Deploy!** Render will build your React UI and Phoenix API into one single link.
 
 ---
 
 ## 🛠️ Local Development
-1. Run `start_backend.bat` for the server.
-2. `cd frontend && npm install && npm run dev` for the UI.
+- Backend: `start_backend.bat`
+- Frontend: `cd frontend && npm install && npm run dev`
 
 ## 📄 License
 MIT

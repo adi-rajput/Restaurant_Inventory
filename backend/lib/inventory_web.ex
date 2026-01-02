@@ -9,7 +9,7 @@ defmodule InventoryWeb do
       use Phoenix.Controller, namespace: InventoryWeb
 
       import Plug.Conn
-      import InventoryWeb.Gettext
+      use Gettext, backend: InventoryWeb.Gettext
       alias InventoryWeb.Router.Helpers, as: Routes
       use Phoenix.VerifiedRoutes, endpoint: InventoryWeb.Endpoint, router: InventoryWeb.Router, statics: ~w(assets fonts images favicon.ico robots.txt)
     end
@@ -48,6 +48,7 @@ defmodule InventoryWeb do
     quote do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
+      use Gettext, backend: InventoryWeb.Gettext
 
       alias InventoryWeb.Router.Helpers, as: Routes
     end

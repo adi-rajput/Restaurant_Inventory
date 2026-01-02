@@ -11,11 +11,14 @@ defmodule InventoryWeb.Endpoint do
   ]
 
   # Serve at "/" the static files from "priv/static" directory.
+  # These are the files we want to serve as static assets.
+  @static_paths ~w(assets fonts images favicon.ico robots.txt index.html)
+
   plug Plug.Static,
     at: "/",
     from: :inventory,
     gzip: false,
-    only: InventoryWeb.static_paths()
+    only: @static_paths
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -40,8 +43,4 @@ defmodule InventoryWeb.Endpoint do
   plug CORSPlug, origin: {System, :get_env, ["FRONTEND_URL", "http://localhost:5173"]}
 
   plug InventoryWeb.Router
-end
-
-defmodule InventoryWeb do
-  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt index.html)
 end
