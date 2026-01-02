@@ -1,0 +1,13 @@
+# General
+node_modules/
+.DS_Store
+.env
+.env.local
+
+# Backend specific
+backend/_build/
+backend/deps/
+
+# Frontend specific
+frontend/dist/
+frontend/node_modules/
