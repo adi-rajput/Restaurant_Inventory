@@ -59,3 +59,11 @@ We use a custom `Inventory.Release` module. This allows the Docker container to 
 
 ### Real-Time Polling
 The frontend implements a high-frequency polling strategy with **AnimatePresence**. This ensures that even without WebSockets, the UI feels fast and "live" as stock levels change.
+
+---
+
+## 5. Quality Assurance (Testing)
+We implement a multi-layered testing strategy to ensure the inventory logic is infallible.
+- **Unit Tests**: Pure functional tests for the `StockCalculator` logic.
+- **Integration Tests**: End-to-end API testing using `Phoenix.ConnTest`.
+- **Validation Guards**: Automated verification of insufficient stock scenarios.
